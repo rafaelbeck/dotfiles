@@ -1,0 +1,8 @@
+[user]
+	name = rafaelbeck
+	email = hello@rafaelbeck.com
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = ~/.config/git/.gitignore
+	editor = atom

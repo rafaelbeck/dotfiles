@@ -1,0 +1,37 @@
+cask_args appdir: '/Applications'
+
+tap 'homebrew/cask'
+tap 'homebrew/cask-versions'
+tap 'homebrew/bundle'
+
+brew 'mas'
+brew 'git'
+brew 'kubectl'
+brew 'dockutil'
+brew 'node'
+
+#basic
+cask '1password'
+#cask 'brave-browser'
+cask 'google-chrome'
+cask 'google-drive-file-stream'
+cask 'slack'
+cask 'microsoft-teams'
+cask 'zoom'
+
+#design
+cask 'figma'
+cask 'sketch'
+cask 'fontbase'
+cask 'principle'
+cask 'zeplin'
+
+#dev
+cask 'iterm2'
+cask 'atom'
+cask 'docker'
+cask 'visual-studio-code'
+
+#additional
+cask 'spotify'
+cask 'epoccam'
