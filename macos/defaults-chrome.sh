@@ -1,11 +1,34 @@
-# Disable swipe navigation
-# defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-# defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+#!/bin/bash
 
-# Use the system-native print preview dialog
-# defaults write com.google.Chrome DisablePrintPreview -bool true
-# defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+DRY_RUN=false
 
-# Expand the print dialog by default
-# defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-# defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+# Parse optional flag
+while [[ "$1" =~ ^- ]]; do
+  case "$1" in
+    --dry-run) DRY_RUN=true ;;
+    *) echo "❌ Unknown option: $1"; exit 1 ;;
+  esac
+  shift
+done
+
+echo "🌐 Applying Google Chrome preferences..."
+
+run_defaults() {
+  if [ "$DRY_RUN" = true ]; then
+    echo "🧪 DRY RUN: defaults write $@"
+  else
+    defaults write "$@"
+  fi
+}
+
+# Enable expanded print dialog by default
+run_defaults com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
+run_defaults com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
+# Optional (uncomment to use):
+# run_defaults com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+# run_defaults com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+# run_defaults com.google.Chrome DisablePrintPreview -bool true
+# run_defaults com.google.Chrome.canary DisablePrintPreview -bool true
+
+echo "✅ Chrome defaults applied."

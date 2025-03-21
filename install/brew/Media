@@ -1,0 +1,7 @@
+cask_args appdir: '~/Applications'
+
+tap 'homebrew/bundle'
+
+cask 'plex'
+cask 'transmission'
+cask 'iina'
