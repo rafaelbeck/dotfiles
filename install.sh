@@ -48,6 +48,23 @@ else
 fi
 
 # ---------------------------------------------
+# Ensure Git uses SSH instead of HTTPS
+# ---------------------------------------------
+cd "$DOTFILES_DIR"
+CURRENT_URL=$(git remote get-url origin)
+if [[ "$CURRENT_URL" == https://* ]]; then
+  echo "🔐 Git remote is using HTTPS:"
+  echo "    $CURRENT_URL"
+  echo "➡️  Switching to SSH for push access..."
+  SSH_URL="git@github.com:rafaelbeck/dotfiles.git"
+  git remote set-url origin "$SSH_URL"
+  echo "✅ Remote updated to SSH:"
+  git remote -v
+else
+  echo "✅ Git remote already uses SSH."
+fi
+
+# ---------------------------------------------
 # Homebrew install (if needed)
 # ---------------------------------------------
 if command -v brew >/dev/null 2>&1; then
@@ -130,7 +147,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "⚠️ SSH connection to GitHub failed."
   fi
 else
-  echo \"⏭️  Skipping SSH key setup.\"
+  echo "⏭️  Skipping SSH key setup."
 fi
 
 # ---------------------------------------------
@@ -195,3 +212,4 @@ echo "\n✅ Setup complete: $LABEL configuration installed."
 if [ "$DRY_RUN" = true ]; then
   echo "🧪 Note: This was a DRY RUN — no real installs occurred."
 fi
+
